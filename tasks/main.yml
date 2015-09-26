@@ -1,0 +1,14 @@
+---
+# tasks file for ansible-debian-intel-3945-4965-wiFi
+# https://wiki.debian.org/iwlegacy
+# http://docs.ansible.com/ansible/apt_repository_module.html
+
+- apt_repository: repo='deb http://http.debian.net/debian/ wheezy main contrib non-free' state=present update_cache=yes
+
+- apt: name={{ item }}
+  with_items:
+    - firmware-iwlwifi
+
+- shell: modprobe -r iwl3945 iwl4965
+
+- shell: modprobe iwl3945 ; modprobe iwl4965
